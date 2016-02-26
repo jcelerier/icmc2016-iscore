@@ -473,14 +473,28 @@ In i-score, there is no low-level memory management which removes a large class 
 However, as soon as the song's logic becomes complex, it is useful to have tools that give the authors the possibility to pinpoint where the execution of the show does not match the expected behaviour.
 Since the presented formalism has extensive expressive capabilities, the composer might find himself confronted to the same family of problems that programmers encounter daily.
 Nowadays, many programming language offer very robust tooling, as can be seen in the performance tools that are provided in integrated development environments such as Xcode, Visual Studio, and the various Unix development tools ecosystem\cite{spinellis2014software}.
-Such tooling can decrease the development time a lot, and we argue that it would also lead composers to write interactive scores more efficiently.
-
+Such tooling adapted to the authoring of interactive scores can decrease the development time a lot, and we argue that it would also lead composers to write interactive scores more efficiently.
+An example implemented in i-score is the capacity to play from any point in time. 
+Other possibilities would be to preview what a set of events would lead to during execution. 
 \section{Conclusion}
-We presented ...
+We presented in this paper the current evolutions of the i-score 
+model and software, which includes the ability to write loops in a time-line, 
+as well as performing arbitrary computation on global variables.
 
-We aim to ...
+Currently, the javascript scripts have to be written in code, even if it 
+is in a generally visual GUI. 
+But given enough testing and user evaluation, it could be possible to have pre-built script presets 
+that could be embedded in the score for the tasks that are the most common when writing a score.
 
-Drawbacks...
+Additionnally, we aim to introduce audio and MIDI capabilities in i-score, so that 
+it will be able to work independently of other sequencers.
+For instance, should it play a sequence of three sounds separated by silence, 
+it would be difficult for the composer if he had to load 
+the songs in an environment such as Ableton Live, and work with them remotely from the other time-line of i-score.
+
+This would also allow for more control on the synchronization of sounds : if they are controlled by network, 
+the latency can cause audio clips that are meant to be synchronized in a sample-accurate manner to be separated by a few milliseconds, it is enough to prevent the usage in some musical contexts.
+
 % \begin{itemize}
 % \item plug-in architecture
 % \item open-source
