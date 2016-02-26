@@ -141,7 +141,7 @@ We first expose briefely the main ideas behind interactive scores, and explain
 how i-score can now be used as a language of the structured programming language 
 family, targeted towards temporal compositions, in a visual time-line interface.
 
-In previous research we mainly exhibited interactive triggers as a tool for a musician 
+In previous research\cite{hogue2014ossia} interactive triggers were exhibited as a tool for a musician 
 to interact with the computer in a compositionnally well-defined way.
 Here, we show that with the introduction of loops, and the capacity to perform computations 
 on variables in a score, we are able to use interactive triggers as a powerful flow control tool, which 
@@ -150,26 +150,41 @@ languages functions.
 
 We conclude by exhibiting an i-score example of a musical work inspired by polyvalent structure music,
 that can be used by composers as a starting point. 
-This example contains relatively few elements, which shows the expresiveness of the language.
+This example contains relatively few elements, which shows the practical expresiveness of the language.
 
 \subsection{Temporal multimedia programming}
-\cite{ackermann1994direct}\cite{song1999interactive}
-- voir mails envoyés à théo, myriam, etc.
-- langages visuels
-- références anciens articles i-score 
-- protocoles ?
-- dire qu'il n'y a pas directement de support des données musicales.
-- dire que use of interactive triggers a été documenté pour gérer l'interaction, 
-et qu'on s'en sert ici pour faire du flot de contrôle interne à la partition interactive.
+The sequencer metaphor is common amongst audio engineers : 
+tracks, and audio or MIDI clips in these tracks, with applied effects 
+and parameter automations that take effect during a period of time.
+
+In multiple cases, it has been shown that it was possible to write 
+more generalist multimedia time-line based sequencers, without the need to restrict oneself 
+to audio data types. 
+The MET++ framework\cite{ackermann1994direct} is an object-oriented framework 
+tailored to build such multimedia applications.
+A common approach, also used in previous version of i-score, is to use constraint programming 
+to represent relations between temporal objects\cite{song1999interactive, allombert2006concurrent, toro2010concurrent}. 
+In \cite{hirzalla1995temporal}, Hirzalla shows how conditionality can be introduced in a timeline 
+to produce different outcomes for a single time-line.
+
+Other approaches for interactive music are generally not based on the time-line metaphore, 
+but more on interaction-centric applications written in patchers such Max/MSP or PureData, 
+with an added possibility of scenarisation using cues. 
+However, the temporal order is then not apparent from the visual representation of the program, 
+unless a lot of care is taken by the composer.
+
+% - références anciens articles i-score 
+% - protocoles ?
 \section{Syntax}
 The syntax and graphical elements used in i-score as well as the 
 execution semantics are for the most part introduced in \cite{celerier2015ossia, baltazar2014score}.
-Multiple execution semantics for the same graphical formalism exist. 
-They are based on Petri Nets, Time Automata and reactive languages.
+Multiple execution semantics for the same graphical formalism have been developed. 
+They are based on Petri Nets\cite{allombert2007system}, Time Automata\cite{arias2015exploiting}, reactive languages\cite{arias2014executing} and temporal concurrent constraint programming\cite{toro2010model}.
 
 The novelty lies in the introduction of temporal loops, and of a computation model 
-based on Javascript. These two features allow complete expressive power in the 
-written scores.
+based on Javascript that can be used at any point in the score. 
+These two features, when combined, provide more expressive power to the i-score visual language, 
+which allows for more dynamic scores.
 
 \subsection{Temporal structured programming}
 Structured programming is a programming paradigm which traces 
@@ -324,7 +339,7 @@ wait for the end of B
 play C
 \end{lstlisting}
 In event-driven programming, instead, one would write a software 
-using callbacks, futures or reactive programming patterns\cite{kambona2013evaluation} :
+using callbacks, futures or reactive programming patterns\cite{kambona2013evaluation} :~\\
 \begin{lstlisting}
 when A is triggered
     play B
@@ -461,20 +476,23 @@ Nowadays, many programming language offer very robust tooling, as can be seen in
 Such tooling can decrease the development time a lot, and we argue that it would also lead composers to write interactive scores more efficiently.
 
 \section{Conclusion}
-\begin{itemize}
-\item plug-in architecture
-\item open-source
-\item soon : audio and midi support (midi can be done today with osc wrappers but a piano-roll or sheet music view would be nice)
-\item computation graph may be useful to plug the input of a box  to an output without using the tree
-\item other features : spatial, etc.
-\item embeddable 
-\item problématique de déboguage, analyse statique
-\end{itemize}
-- dire qu'on veut utiliser des retours sur les utilisations 
-les plus courante de JS par les gens pour en faire des éléments 
-prédéfinis de l'interface graphique.
+We presented ...
+
+We aim to ...
+
+Drawbacks...
+% \begin{itemize}
+% \item plug-in architecture
+% \item open-source
+% \item soon : audio and midi support (midi can be done today with osc wrappers but a piano-roll or sheet music view would be nice)
+% \item computation graph may be useful to plug the input of a box  to an output without using the tree
+% \item other features : spatial, etc.
+% \item embeddable 
+% \item problématique de déboguage, analyse statique
+% \end{itemize}
+% - dire qu'on veut utiliser des retours sur les utilisations  les plus courante de JS par les gens pour en faire des éléments  prédéfinis de l'interface graphique.
 \begin{acknowledgments}
-    This work was funded by Blue Yeti and ANR.
+    Anonymized %This work is supported by an ANRT CIFRE convention with the company Blue Yeti under funding 1181-2014.    
 \end{acknowledgments} 
 
 \bibliography{icmc2016template}
