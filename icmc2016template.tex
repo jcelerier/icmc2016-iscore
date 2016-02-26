@@ -4,11 +4,13 @@
 % ===========================================
 
 \documentclass{article}
+\usepackage[utf8]{inputenc}
 \usepackage{icmc2016template}
 \usepackage{times}
 \usepackage{ifpdf}
 \usepackage{soul}
 \usepackage[english]{babel}
+\usepackage{listings}
 %\usepackage{cite}
 
 
@@ -29,13 +31,14 @@
 % ================ Define title and author names here ===============
 % ====================================================
 %user defined variables
-\def\papertitle{Paper Template for ICMC 2016}
-\def\firstauthor{First Author}
-\def\secondauthor{Second Author}
-\def\thirdauthor{Third Author}
-\def\fourthauthor{Fourth Author}
-\def\fifthauthor{Fifth Author}
-\def\sixthauthor{Sixth Author}
+\def\papertitle{Graphical Temporal Structured Programming for Interactive Music}
+\def\firstauthor{Anonymized}
+\def\secondauthor{Anonymized}
+\def\thirdauthor{Anonymized}
+
+%\def\firstauthor{Jean-Michaël Celerier}
+%\def\secondauthor{Myriam Desainte-Catherine}
+%\def\thirdauthor{Jean-Michel Couturier}
 
 % adds the automatic
 % Saves a lot of output space in PDF... after conversion with the distiller
@@ -94,101 +97,17 @@
     urlcolor=black
 }
 
-
-% ====================================================
-% ================ Title and author info starts here ===============
-% ====================================================
-% Title.
-% ------
 \title{\papertitle}
 
-% Authors
-% Please note that submissions are anonymous, therefore 
-% authors' names should not be VISIBLE in your paper submission.
-% They should only be included in the camera-ready version of accepted papers.
-% uncomment and use the appropriate section (1, 2 or 3 authors)
-%
-% Single address
-% To use with only one author or several with the same address
-% ---------------
-%\oneauthor
-%   {\firstauthor} {Affiliation \\ %
-%     {\tt \href{mailto:author@unt.edu}{author@unt.edu}}}
-
-%Two addresses
-% the default spacing is 1.5in, but this can be reduced to 0.5in or less, if needed
-%--------------
-% \twoauthors
-%   {1.5in}
-%   {\firstauthor} {Affiliation1 \\  %
-%     {\tt \href{mailto:author1@unt.edu}{author1@unt.edu}}}
-%   {\secondauthor} {Affiliation2 \\  %
-%     {\tt \href{mailto:author2@unt.edu}{author2@unt.edu}}}
-
-% Three addresses
-% the default spacing is 0.5in, but this can be reduced to 0.3in or less, if needed
-% --------------
- \threeauthors
-   {0.5in}
-   {\firstauthor} {Affiliation1 \\ %
-     {\tt \href{mailto:author1@smcnetwork.org}{author1@smcnetwork.org}}}
-   {\secondauthor} {Affiliation2 \\ %
-     {\tt \href{mailto:author2@smcnetwork.org}{author2@smcnetwork.org}}}
-   {\thirdauthor} { Affiliation3 \\ %
-     {\tt \href{mailto:author3@smcnetwork.org}{author3@smcnetwork.org}}}
-
-% Four addresses
-% the default spacing is 1.5in, but this can be reduced to 0.5in or less, if needed
-% --------------
-% \fourauthors
-%   {1.5in}
-%   {\firstauthor} {Affiliation1 \\ %
-%     {\tt \href{mailto:author1@unt.edu}{author1@unt.edu}}}
-%   {\secondauthor} {Affiliation2 \\ %
-%     {\tt \href{mailto:author2@unt.edu}{author2@unt.edu}}}
-%   {\thirdauthor} { Affiliation3 \\ %
-%     {\tt \href{mailto:author3@unt.edu}{author3@unt.edu}}}
-%   {\fourthauthor} { Affiliation4 \\ %
-%     {\tt \href{mailto:author4@unt.edu}{author4@unt.edu}}}
-
-% Five addresses
-% the default spacing is 0.5in, but this can be reduced to 0.3in or less, if needed
-% --------------
-% \fiveauthors
+%\threeauthors
 %   {0.5in}
-%   {\firstauthor} {Affiliation1 \\ %
-%     {\tt \href{mailto:author1@unt.edu}{author1@unt.edu}}}
-%   {\secondauthor} {Affiliation2 \\ %
-%     {\tt \href{mailto:author2@unt.edu}{author2@unt.edu}}}
-%   {\thirdauthor} { Affiliation3 \\ %
-%     {\tt \href{mailto:author3@unt.edu}{author3@unt.edu}}}
-%   {\fourthauthor} { Affiliation4 \\ %
-%     {\tt \href{mailto:author4@unt.edu}{author4@unt.edu}}}
-%   {\fifthauthor} { Affiliation5 \\ %
-%     {\tt \href{mailto:author5@unt.edu}{author5@unt.edu}}}
+%   {\firstauthor} {LaBRI, Blue Yeti \\ %
+ %    {\tt \href{mailto:author1@smcnetwork.org}{author1@smcnetwork.org}}}
+ %  {\secondauthor} {LaBRI, CNRS \\ %
+  %   {\tt \href{mailto:author2@smcnetwork.org}{author2@smcnetwork.org}}}
+  % {\thirdauthor} { Blue Yeti \\ %
+   %  {\tt \href{mailto:author3@smcnetwork.org}{author3@smcnetwork.org}}}
 
-% Six addresses
-% the default spacing is 0.5in, but this can be reduced to 0.3in or less, if needed
-% --------------
-% \sixauthors
-%   {0.5in}
-%   {\firstauthor} {Affiliation1 \\ %
-%     {\tt \href{mailto:author1@unt.edu}{author1@unt.edu}}}
-%   {\secondauthor} {Affiliation2 \\ %
-%     {\tt \href{mailto:author2@unt.edu}{author2@unt.edu}}}
-%   {\thirdauthor} { Affiliation3 \\ %
-%     {\tt \href{mailto:author3@unt.edu}{author3@unt.edu}}}
-%   {\fourthauthor} { Affiliation4 \\ %
-%     {\tt \href{mailto:author4@unt.edu}{author4@unt.edu}}}
-%   {\fifthauthor} { Affiliation5 \\ %
-%     {\tt \href{mailto:author5@unt.edu}{author5@unt.edu}}}
-%   {\sixthauthor} { Affiliation6 \\ %
-%     {\tt \href{mailto:author6@unt.edu}{author6@unt.edu}}}
-
-
-% ====================================================
-% =============== The document content starts here ===============
-% ====================================================
 \begin{document}
 %
 \capstartfalse
@@ -196,125 +115,182 @@
 \capstarttrue
 %
 \begin{abstract}
-The abstract should be placed at the start of the top left column and should contain about 150-200 words. The abstract should be formatted in italic type (this has already been set in the abstract style).
+     The development and authoring of interactive music or applications, such as user interfaces for arts \& exhibitions
+     has traditionally been done with tools that pertain to two broad metaphors. 
+     Cue-based environments work by making groups of parameters and sending them to remote devices, 
+     while more interactive applications are generally written in generic art-oriented 
+     programming environments, such as Max/MSP, Processing or OpenFrameworks.
+     In this paper, we argue about the specific issues that arise in such environments, and we present 
+     the current version of the i-score sequencer. It is an extensive software suite that bridges
+     the gap between time-based, logic-based and flow-based interactive application authoring tools. 
+     This is done in a single cohesive graphical user interface, built upon a few simple and novel primitives that give to the composer the expressive power of structured programming, in a time line adapted to the notation of parameter-oriented interactive music.    
 \end{abstract}
 %
 
 \section{Introduction}\label{sec:introduction}
-This template includes all the information about formatting manuscripts for the ICMC 2016 Conference. When preparing your submission, please use either the MS-Office or LaTeX templates provided. Please follow these guidelines to give the final proceedings a uniform look. Authors will be {\em required} to make any necessary typographic corrections and changes before publication. If you have any questions, please contact the ICMC 2016 Organizers.
 
-This template can be downloaded from the ICMC 2016 web site (\texttt{http://icmc2016.unt.edu/}).
+\section{Temporal multimedia programming}\label{sec:page_size}
+\cite{ackermann1994direct}\cite{song1999interactive}
+- voir mails envoyés à théo, myriam, etc.
+- langages visuels
+- références anciens articles i-score 
+- protocoles ?
+- dire qu'il n'y a pas directement de support des données musicales.
 
-\section{Page size and format}\label{sec:page_size}
-The proceedings will be formatted as {\em portrait A4-size paper (21.0cm $\times$ 29.7cm)}. All material on each page should fit within a rectangle of 17.2cm $\times$ 25.2cm, centered on the page, beginning 2.0cm from the top of the page and ending with 2.5cm from the bottom. The left and right margins should be 1.9cm. The text should be in two 8.2cm columns with a 0.8cm gutter. All {\em text} must be in a two-column format, and justified.
+\section{Syntax}
+The syntax and graphical elements used in i-score as well as the 
+execution semantics are for the most part introduced in \cite{celerier2015ossia, baltazar2014score}.
+Multiple execution semantics for the same graphical formalism exist. 
+They are based on Petri Nets, Time Automata and Reactive languages.
 
-\section{Typeset Text}\label{sec:typeset_text}
+The novelty lies in the introduction of temporal loops, and of a computation model 
+based on Javascript. These two features allow complete expressive power in the 
+written scores.
 
-\subsection{Normal or Body Text}\label{subsec:body}
-Please use a 10~pt (point) Times family font (i.e., Times New Roman). Sans-serif fonts or non-proportional fonts can be used only for special purposes, such as distinguishing source code text.
-
-The first paragraph in each section should not be indented, but all other paragraphs should be. (Again, these have all been set in the styles provided.)
-
-% this inserts a column-break
-%\pagebreak
-
-\subsection{Title and Authors}
-The title is 16~pt Times, bold, upper case, centered. Authors' names are centered. The lead author's name is to be listed first (left-most), and the co-authors' names after. If the addresses for all authors are the same, include the address only once, centered. If the authors have different addresses, put the addresses, evenly spaced, under each authors' name.
-
-\subsection{First Page Copyright Notice}
-Please include the copyright notice exactly as it appears here in the lower left-hand corner of the page. It is set in 8~pt Times, one column in width, and should not descend into the  page margins (i.e. it should keep clear of the 1" margin at the bottom of the page).
-
-\subsection{Page Numbering, Headers and Footers}
-Do not include headers, footers or page numbers in your submission. These will be added when the publications are assembled.
-
-\section{Headings}
-First level headings are in Times 12pt bold, centered with 1 line of space above the section head, and 1/2 space below it.  For a section header immediately followed by a subsection header, the space should be merged.
-
-\subsection{Second Level Headings}
-Second level headings are in Times 10~pt bold, flush left,
-with 1 line of space above the section head, and 1/2 space below it.
-The first letter of each significant word is capitalized.
-
-\subsubsection{Third and further Level Headings}
-Third level headings are in Times 10~pt italic, flush left, with 1/2 line of space above the section head, and 1/2 space below it. The first letter of each significant word is capitalized.
-
-Using more than three levels of headings is strongly discouraged.
-
-\pagebreak
-
-\section{Equations, Figures, Footnotes}
-
-\subsection{Equations}
-Equations should be placed on separated lines and numbered.
-The number should be on the right side, in parentheses.
-\begin{equation}
-E=mc^{2}.
-\label{eq:Emc2}
-\end{equation}
-
-\subsection{Figures, Tables and Captions}
-All artwork must be centered, neat, clean, and legible. All lines should be very dark for purposes of reproduction and artwork should not be hand-drawn. The proceedings will be distributed in electronic form only, therefore color figures are allowed. However, you may want to check that your figures are understandable even if they are printed in black-and-white.
-\begin{table}[h]
- \begin{center}
- \begin{tabular}{|l|l|}
-  \hline
-  String Value & Numeric value \\
-  \hline
-  Hello ICMC & 2016 \\
-  \hline
- \end{tabular}
-\end{center}
- \caption{Table captions should be placed below the table.}
- \label{tab:example}
-\end{table}
-
-Numbers and captions of figures and tables always appear below the figure/table. Leave 1 line space between the figure or table and the caption. Figure and tables are numbered consecutively. Captions should be Times 10~pt. Place tables/figures in text as close to the reference as possible, and preferably at the top of the page.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.9\columnwidth]{figure.eps}
-\caption{Figure captions are placed below the figure, exactly like this.\label{fig:example}}
+\subsection{Variables}
+Variables can be easily implemented by 
+- Variables ? 
+-> can be stocked in the tree
+-> no notion of scope
+- JS can be used for local variable concept
+\subsection{Temporal structured programming}
+\begin{figure}
+    \includegraphics[width=0.45\textwidth]{images/hierarchy.eps}
+    \caption{Screenshot of a part of i-score, showing major elements of the formalism.}
+    \label{fig.hierarchy}
 \end{figure}
+Structured programming is a programming paradigm which traces 
+back to the 60's, and was conceived at a time where the use of \verb|GOTO|
+instructions was prevalent in computing, which often led to code difficult to understand.
 
-Always refer to tables and figures in the main text, for example:
-see Figure \ref{fig:example} and \tabref{tab:example}. 
-Place Tables/Figures in text as close to the reference as possible.
-Figures and tables may extend across both columns to a maximum width of 17.2cm.
+The structured programming theorem\cite{bohm1966flow,mills1972mathematical} states that any computable function can be computed 
+without the use of \verb|GOTO| instructions, if instead the following operations are available : 
+\begin{itemize}
+    \item Sequence (\verb|A| followed by \verb|B|), 
+    \item Conditional (\verb|if(Pred) then A else B|), 
+    \item Iterative (\verb|while(Pred) do A|).
+\end{itemize}
 
-Vectorial figures are preferred. 
-When using {\texttt{Matlab}}, 
-export using either Postscript or PDF format. 
-Also, in order to optimize readability, the font size of text within a figure should be at list identical to footnote font size. If bitmap figures are used, please make sure that the resolution is enough for print quality. 
+Additionnaly, the ability to perform computations is required in order to have a meaningful program.
 
-\subsection{Footnotes}
-Indicate footnotes with a number in the text.\footnote{This is a footnote.}
-Use 8~pt type for footnotes. Place the footnotes at the bottom of the page 
-on which they appear. 
-Precede the footnote with a 0.5~pt horizontal rule.
+In order to allow for interactive musical scores authoring, we simulate these concepts in the time-line paradigm.
+A virtual machine ticks a timer and makes the time flow in the score graph. 
+During this time, multiple processes, which include scenarisation, looping, and multimedia processes, are 
+run at each tick. 
 
-%\newpage
+Processes can be of two kinds : temporal or instantaneous.
+Temporal processes can be explained as functions of time that the composer wants to run between 
+two points in time. 
+For instance : \emph{do a volume fade-in from t=10s to t=25s}.~\\
+Instantaneous processes are functions that will be run at a single point in time.
+For instance : \emph{send a single random number to an OSC address}.
 
-\section{Citations}
-All bibliographical references should be listed at the end, inside a section named ``REFERENCES''.
+Some elements of the syntax are shown in fig.~\ref{fig.hierarchy}.
 
-References must be numbered {\ul {in order of appearance}}, {\em not} alphabetically. Please avoid listing references that do not appear in the text.
+The scenario is an organisation of the elements of our formalism which allows for sequencing elements, conditional branching, and interactive triggering.
+The loop is another organization of the same elements, more restrictive, and with a different control flow.
 
-Reference numbers in the text should appear within square brackets, such as 
-in~\cite{Someone:09} or~\cite{Someone:04,Someone:13}.
+The software communicates via OSC and maintains a tree of parameters able to mirror 
+the object model of remote software built with Max/MSP, PureData, Unity3D or any OSC-compliant environment. 
+Conditions, interactive triggers, and more generally all processes of i-score have unrestricted 
+access to this tree, and can read its data, perform computations on it, and write it back to the 
+remote software.
 
-The reference format is the standard IEEE one. We recommend using BibTeX to create the reference list.
+\section{Authoring features}
+i-score provides multiple authoring features aiming to allow 
+the composer to express himself.
+Besides, the software is based on a plug-in architecture which 
+allows for easy extension of its capabilities.
+\begin{itemize}
+\item Javascript support : one can use Javascript scripts both as temporal and instantaneous processes.
+When writing a temporal process, the composer has to provide a function of the form : 
+\begin{lstlisting}
+function(t) {      
+    var obj = new Object; 
+    obj["address"] = '/an/osc/address'; 
+    obj["value"] = 42; 
+ return [ obj ]
+}
+\end{lstlisting}
+When writing an instantaneous process, the function to provide is similar, but does not take the time in argument.
+Functions writer are encouraged to write stateless functions, since it would allow for optimizations opportunities such as precomputing an array of values.
 
+\item Automation : the traditional DAW automation, which writes in a parameter over time. Currently provided are 1D (linear, power) and 3D (cubic spline) automations.
+\item Mapping : similar in appearance to the automation, this process will take an OSC address as input, apply a transfer function, and write the output to another address.
+\item Recording : one can record either automations which will be able to apply automatic interpolation for numeric parameters, or record any kind of input message to replay it afterwards.
+\item Execution speed control : the temporal constraints all have a multiplicating coefficient for execution speed.
+\item Introspectability : i-score exposes the current score in the same tree that the remote devices. 
+Multiple attributes can be queried, and to some extent modified during the execution of the score. 
+For instance, the current position of the play head, the activation status of interactive triggers, and the execution speed of all the temporal constraints are controlable parameters.
+The elements are organized hierarchically according to their hierarchy in the scenario, and can also be controled from the network.
+Plug-ins can expose their own attributes in this tree.
+\item Interactive execution : during the authoring process, it is sometimes necessary to replay just a part of the score.
+i-score provides this capacity. 
+However, it is necessary for the composer to choose beforehand the truth value of conditions he wants to test.
+There are two "debug" execution modes : one that will directly start playing from where the user points the mouse, and another that will try to merge all the previously sent values, to put the external environment in the same state that it would be if the score had been played normally up until this point. 
+This breaks if there are physical processes that are not instantaneous, as would be the case for smoke machines for instance.
+\end{itemize}
+\section{Temporal design patterns}
+In this section, we present various design patterns that can be used 
+when one wants to build an interactive score with i-score.
+We will showcase event-driven scores, which will have a behaviour 
+similar to a traditional computer program executing instruction after 
+instruction at maximal speed, and an example in simulating the 
+concept of function as it exists in the C language.
+\subsection{Event-driven design}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/event.eps}
+    \caption{An example of event-driven score}
+    \label{fig.event}
+\end{figure}
+Event-driven, or asynchronous design is a softwar design 
+paradigm that is centered on the notion of asynchronous 
+communication between different parts of the software.
+This is commonly used when doing networked operations.
 
-\section{Conclusions}
-Please, submit full-length papers. Submission is fully electronic and automated through the Conference Management System. 
-{\ul{Do not}} send papers directly by e-mail.
+Instead of writing : 
+\verb|play A; play B; play C|, in event-driven programming, one would write :
+\begin{lstlisting}
+when A is triggered
+    play B
+when B is triggered
+    play C    
+play A
+\end{lstlisting}
 
+Since i-score supports interactive events, one can easily write such event chaining.
+An example is given in fig.~\ref{fig.event}. 
+The advantage is that ordered operations can be written easily : there is no 
+possibility for B to happen before A if there is a time constraint between A and B.
+However, the execution engine will introduce a delay of one tick between each call.
+The tick rate can be set to as low as one kilo-hertz.
+\subsection{Simulating functions}
+\includegraphics[width=0.45\textwidth]{images/function.eps}
+
+% \subsection{References ?}
+
+\section{Musical examples}\label{sec:typeset_text}
+
+\subsection{Klavierstück}\label{subsec:body}
+\includegraphics[width=0.45\textwidth]{images/partition.eps}
+
+\subsection{Fibonacci recursive}
+
+\section{Conclusion}
+- plug-in architecture
+- open-source
+- soon : audio and midi support (midi can be done today with osc wrappers
+but a piano-roll or sheet music view would be nice)
+- computation graph may be useful to plug the input of a box 
+to an output without using the tree
+- other features : spatial, etc.
+- embeddable 
+- problématique de déboguage, analyse statique
 \begin{acknowledgments}
-At the end of the Conclusions, acknowledgements to people, projects, funding agencies, etc. can be included after the second-level heading ``Acknowledgments'' (with no numbering).
+    This work was funded by Blue Yeti and ANR.
 \end{acknowledgments} 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%bibliography here
 \bibliography{icmc2016template}
 
 \end{document}
