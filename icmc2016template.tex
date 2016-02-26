@@ -154,13 +154,8 @@ Variables can be easily implemented by
 -> no notion of scope
 - JS can be used for local variable concept
 \subsection{Temporal structured programming}
-\begin{figure}
-    \includegraphics[width=0.45\textwidth]{images/hierarchy.eps}
-    \caption{Screenshot of a part of i-score, showing major elements of the formalism.}
-    \label{fig.hierarchy}
-\end{figure}
 Structured programming is a programming paradigm which traces 
-back to the 60's, and was conceived at a time where the use of \verb|GOTO|
+back to the 1960's, and was conceived at a time where the use of \verb|GOTO|
 instructions was prevalent in computing, which often led to code difficult to understand.
 
 The structured programming theorem\cite{bohm1966flow,mills1972mathematical} states that any computable function can be computed 
@@ -185,16 +180,38 @@ For instance : \emph{do a volume fade-in from t=10s to t=25s}.~\\
 Instantaneous processes are functions that will be run at a single point in time.
 For instance : \emph{send a single random number to an OSC address}.
 
-Some elements of the syntax are shown in fig.~\ref{fig.hierarchy}.
+\begin{figure}
+    \includegraphics[width=0.45\textwidth]{images/hierarchy.eps}
+    \caption{Screenshot of a part of i-score, showing major elements of the formalism. The time constraint is the full or dashed horizontal line, the states are the black dots, the time nodes are the vertical bars, and a time event is shown at the right of the "Condition" text. Interactive triggers are black \textbf{T}'s with a downwards arrow. There are five processes (capitalized) : an englobing Scenario which is the hierarchical root of the score, another Scenario, in the box "Hierarchy", an Automation on a remote parameter in the "Curve" box, a Loop in the box containing the loop pattern, and another Automation that will be looped.}
+    \label{fig.hierarchy}
+\end{figure}
+\subsubsection{Scenario}
+The scenario is an organisation of the elements of the i-score model : time constraint (a span of time which contains temporal processes), time node (which will synchronize the ending of time constraints with the happening of an external event such as a note being played), time event (a condition that will cause its following time constraints to start if it is true), and state (which contains data to send and instantaneous processes).
+They are shown in fig.~\ref{fig.hierarchy}. 
+The time flows from left to right as in most traditional sequencers, however due to the presence of interactivity, we cannot show all the possibilities of execution of the score, since they would be almost infinite. 
+Hence dashes are shown when the actual execution time is not known beforehand. 
+For instance : \emph{play a D minor chord until a dancer moves on stage}.
 
-The scenario is an organisation of the elements of our formalism which allows for sequencing elements, conditional branching, and interactive triggering.
-The loop is another organization of the same elements, more restrictive, and with a different control flow.
+In the context of a Scenario, these primitives allows for sequencing elements, conditional branching, and interactive triggering, but are not enough for looping.
+The GUI of the i-score software allows for all the common and expected operations for elements of a scenario : displacement, scaling, creation, deletion, copy-paste...
 
-The software communicates via OSC and maintains a tree of parameters able to mirror 
+\subsubsection{Loop}
+The loop is another organization of the same elements, more restrictive, and with a different control flow : it is 
+composed exclusively of two time nodes, two time events, two states, and a time constraint in between.
+When the second time node gets executed, the time flow is reverted to before the execution of the first time node.
+This means that if the composer adds an interactive trigger on any of these time nodes, the Loop will be able to do pattern of different durations at each loop cycle.
+This is strictly more general than loops in more traditional sequencers such as Avid Pro Tools, Steinber Cubase or Apple Logic, when the loop is generally a strict duplication of the audio or MIDI data.
+
+\subsubsection{Communication}
+The software mainly communicates via the OSC\footnote{Open Sound Control} protocol,  and maintains a tree of parameters able to mirror 
 the object model of remote software built with Max/MSP, PureData, Unity3D or any OSC-compliant environment. 
 Conditions, interactive triggers, and more generally all processes of i-score have unrestricted 
 access to this tree, and can read its data, perform computations on it, and write it back to the 
 remote software.
+Music can currently expressed with the help of either a remote software or hardware device that is able 
+to convert OSC messages to either MIDI or audio.
+One can for instance easily build a PureData patch to convert OSC messages matching a certain pattern 
+to the corresponding MIDI notes.
 
 \section{Authoring features}
 i-score provides multiple authoring features aiming to allow 
@@ -203,16 +220,18 @@ Besides, the software is based on a plug-in architecture which
 allows for easy extension of its capabilities.
 \begin{itemize}
 \item Javascript support : one can use Javascript scripts both as temporal and instantaneous processes.
-When writing a temporal process, the composer has to provide a function of the form : 
+When writing a temporal process, the composer has to provide a function of the following form : 
 \begin{lstlisting}
 function(t) {      
     var obj = new Object; 
-    obj["address"] = '/an/osc/address'; 
-    obj["value"] = 42; 
+    obj.address = '/an/address'; 
+    obj.value = 42; 
  return [ obj ]
 }
 \end{lstlisting}
-When writing an instantaneous process, the function to provide is similar, but does not take the time in argument.
+This function will get called at each tick with the time \verb|t| being a floating point between 0 and infinity, 1 being the default date that the composer has set.
+The messages returned will be applied to the local state of the tree and sent remotely if corresponding nodes were found.
+When writing an instantaneous process, the function to provide is similar, but does not take a time argument.
 Functions writer are encouraged to write stateless functions, since it would allow for optimizations opportunities such as precomputing an array of values.
 
 \item Automation : the traditional DAW automation, which writes in a parameter over time. Currently provided are 1D (linear, power) and 3D (cubic spline) automations.
@@ -264,29 +283,78 @@ An example is given in fig.~\ref{fig.event}.
 The advantage is that ordered operations can be written easily : there is no 
 possibility for B to happen before A if there is a time constraint between A and B.
 However, the execution engine will introduce a delay of one tick between each call.
-The tick rate can be set to as low as one kilo-hertz.
+The tick frequency can be set to as high as one kilo-hertz.
+Dependencies can also be graphically explicited : here, the last time constraint will 
+only be executed after all the incoming branches were executed. 
+This allow to write a score that says "start section B five seconds after musician 1 and 3 
+have stopped playing".
+There is no practical limit to the amount of branches that can be synchronized in this way.
+
 \subsection{Simulating functions}
+
+\begin{figure}
 \includegraphics[width=0.45\textwidth]{images/function.eps}
+\caption{Implementation of a function in i-score}
+\label{fig.function}
+\end{figure}
 
-% \subsection{References ?}
+\section{Musical example : polyvalent structure}
+\begin{figure}
+    \includegraphics[width=0.45\textwidth]{images/partition.eps}
+    \caption{A polyvalent score in i-score}
+    \label{fig.polyvalent}
+\end{figure}
 
-\section{Musical examples}\label{sec:typeset_text}
+In this example, showcased in fig.~\ref{fig.polyvalent}, we present a work that is similar in structure to Karlheinz Stockhausen's \emph{Klavierstück XI} (1956), or John Cage's \emph{Two} (1987). 
 
-\subsection{Klavierstück}\label{subsec:body}
-\includegraphics[width=0.45\textwidth]{images/partition.eps}
+The complete work contains variables in the tree, as explained earlier, and a temporal score.
 
-\subsection{Fibonacci recursive}
+The tree is defined as follows : 
+\begin{lstlisting}
+/part/next [int = 0]
+/part/1/count [int = 0]
+/part/2/count [int = 0]
+/part/3/count [int = 0]
+/exit [bool = false]
+\end{lstlisting}
+
+The score is as follows : there are multiple muscial parts containing recordings of MIDI notes : \textbf{Part. 1, 2, 3}.
+Thes parts are contained in a Scenario, itself contained in a Loop that will run indefinitely. 
+At the end of each part, there is an orange State that will write a message "true" to a variable \verb|/exit|.
+The time constraint of the loop ends on an orange interactive trigger, $T_{loop}$.
+The Loop itself is inside a Time constraint ended by an interactive trigger, $T_{end}$.
+Finally, the parts are started by interactive triggers  $T_{\{1, 2, 3\}}$ .
+
+The conditions in the triggers are as follows : 
+\begin{itemize}
+\item  $T_{\{1, 2, 3\}}$ : \verb|/part/next == {1, 2, 3}|.
+\item $T_{loop}$ : \verb|/exit == true|.
+\item $T_{end}$ : ~\\
+\verb|/part/1/count > 2 and| \\
+\verb|/part/2/count > 2 and| \\
+\verb|/part/3/count > 2|.
+\end{itemize}
+
+
+\section{Tooling}
+There are plenty of parts that requires new problems to be solved in i-score, especially in the area of debugging. 
+For instance, debugging is generally used to understand and find out easily why did not a program produce the expected result.
+In i-score, there is not too many problems due to low-level memory management and there cannot be crashes of the interpreter, minus potential bugs in its implementation. 
+However, as soon as the show's logic becomes complex, it is useful to have tools that give the authors the possibility to pinpoint where the execution of the show does not match the expected behaviour.
+Since the presented formalism has extensive expressive capabilities, the composer might find himself confronted to the same family of problems that programmers encounter daily.
+Nowadays, many programming language offer very robust tooling, as can be seen in the performance tools that are provided in integrated development environments such as Xcode, Visual Studio, and the various Unix development tool ecosystem\cite{spinellis2014software}.
+Such tooling can decrease the development time a lot, and we assume that it would also lead composers to write interactive scores more efficiently.
 
 \section{Conclusion}
-- plug-in architecture
-- open-source
-- soon : audio and midi support (midi can be done today with osc wrappers
-but a piano-roll or sheet music view would be nice)
-- computation graph may be useful to plug the input of a box 
-to an output without using the tree
-- other features : spatial, etc.
-- embeddable 
-- problématique de déboguage, analyse statique
+\begin{itemize}
+\item plug-in architecture
+\item open-source
+\item soon : audio and midi support (midi can be done today with osc wrappers but a piano-roll or sheet music view would be nice)
+\item computation graph may be useful to plug the input of a box  to an output without using the tree
+\item other features : spatial, etc.
+\item embeddable 
+\item problématique de déboguage, analyse statique
+\end{itemize}
 \begin{acknowledgments}
     This work was funded by Blue Yeti and ANR.
 \end{acknowledgments} 
