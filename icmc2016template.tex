@@ -11,6 +11,7 @@
 \usepackage{soul}
 \usepackage[english]{babel}
 \usepackage{listings}
+\lstset{columns=fullflexible,keepspaces=true,basicstyle=\ttfamily}
 %\usepackage{cite}
 
 
@@ -129,14 +130,15 @@
 
 \section{Introduction}\label{sec:introduction}
 
-\section{Temporal multimedia programming}\label{sec:page_size}
+\subsection{Temporal multimedia programming}\label{sec:page_size}
 \cite{ackermann1994direct}\cite{song1999interactive}
 - voir mails envoyés à théo, myriam, etc.
 - langages visuels
 - références anciens articles i-score 
 - protocoles ?
 - dire qu'il n'y a pas directement de support des données musicales.
-
+- dire que use of interactive triggers a été documenté pour gérer l'interaction, 
+et qu'on s'en sert ici pour faire du flot de contrôle interne à la partition interactive.
 \section{Syntax}
 The syntax and graphical elements used in i-score as well as the 
 execution semantics are for the most part introduced in \cite{celerier2015ossia, baltazar2014score}.
@@ -155,14 +157,14 @@ Variables can be easily implemented by
 - JS can be used for local variable concept
 \subsection{Temporal structured programming}
 Structured programming is a programming paradigm which traces 
-back to the 1960's, and was conceived at a time where the use of \verb|GOTO|
+back to the 1960's, and was conceived at a time where the use of \lstinline{GOTO}
 instructions was prevalent in computing, which often led to code difficult to understand.
 
 The structured programming theorem\cite{bohm1966flow,mills1972mathematical} states that any computable function can be computed 
-without the use of \verb|GOTO| instructions, if instead the following operations are available : 
+without the use of \lstinline{GOTO} instructions, if instead the following operations are available : 
 \begin{itemize}
-    \item Sequence (\verb|A| followed by \verb|B|), 
-    \item Conditional (\verb|if(Pred) then A else B|), 
+    \item Sequence (\lstinline{A} followed by \lstinline{B}), 
+    \item Conditional (\lstinline{if(Pred) then A else B}), 
     \item Iterative (\verb|while(Pred) do A|).
 \end{itemize}
 
@@ -181,6 +183,7 @@ Instantaneous processes are functions that will be run at a single point in time
 For instance : \emph{send a single random number to an OSC address}.
 
 \begin{figure}
+    \centering
     \includegraphics[width=0.45\textwidth]{images/hierarchy.eps}
     \caption{Screenshot of a part of i-score, showing major elements of the formalism. The time constraint is the full or dashed horizontal line, the states are the black dots, the time nodes are the vertical bars, and a time event is shown at the right of the "Condition" text. Interactive triggers are black \textbf{T}'s with a downwards arrow. There are five processes (capitalized) : an englobing Scenario which is the hierarchical root of the score, another Scenario, in the box "Hierarchy", an Automation on a remote parameter in the "Curve" box, a Loop in the box containing the loop pattern, and another Automation that will be looped.}
     \label{fig.hierarchy}
@@ -255,7 +258,7 @@ when one wants to build an interactive score with i-score.
 We will showcase event-driven scores, which will have a behaviour 
 similar to a traditional computer program executing instruction after 
 instruction at maximal speed, and an example in simulating the 
-concept of function as it exists in the C language.
+concept of function in a time-driven model.
 \subsection{Event-driven design}
 \begin{figure}
     \centering
@@ -293,13 +296,50 @@ There is no practical limit to the amount of branches that can be synchronized i
 \subsection{Simulating functions}
 
 \begin{figure}
+\centering
 \includegraphics[width=0.45\textwidth]{images/function.eps}
 \caption{Implementation of a function in i-score}
 \label{fig.function}
 \end{figure}
 
+The notion of function is extremely common in programming languages.
+It consists in an abstraction around a behaviour that can be called 
+by name easily.
+The concept of function is useful, because it means that 
+if one wants the same behaviour to occur at multiple times during
+the execution of the program or the score, this behaviour will 
+have to be written only once.
+However, the visual flow becomes destructured, because 
+the definition of the function is given at a point in the program / score, 
+and its usage is at other points.
+
+We present in fig.~\ref{fig.function} how one could create a simple 
+notion of function that will then be able to be recalled at any point in time.
+However, it suffers from a restriction due to its temporal nature : 
+it will only be able to be called when it is not already currently running. 
+This is due to the single-threaded nature of the execution engine : there is 
+only a single playhead for the entirety of the score, hence it cannot play the 
+same data at two different times.
+
+The function is built as follows : 
+\begin{itemize}
+    \item A time constraint in the root Scenario will end on an interactive triggering set with infinite duration.
+    \item This time constraint contains a Loop process. 
+    The functions is named \verb|f| in the local tree. The interactive triggers $T_1, T_2$ at the beginning and end of the pattern time constraint are set as follows : 
+    \begin{itemize}
+        \item $T_1$ : \verb|/f/call true|.
+        \item $T_2$ : \verb|/f/call true|.
+    \end{itemize}
+    A state triggered by $T_1$ should set the message:~\\
+    \verb|/f/call false|. This is so that the function does not loop 
+    indefinitely and has to be triggered manually again.
+    \item The loop contains the actual "function", that is, the process that the composer wants to be able to call from any point in his score.
+\end{itemize}
+
+- additivity of data 
 \section{Musical example : polyvalent structure}
 \begin{figure}
+    \centering
     \includegraphics[width=0.45\textwidth]{images/partition.eps}
     \caption{A polyvalent score in i-score}
     \label{fig.polyvalent}
@@ -330,11 +370,29 @@ The conditions in the triggers are as follows :
 \item  $T_{\{1, 2, 3\}}$ : \verb|/part/next == {1, 2, 3}|.
 \item $T_{loop}$ : \verb|/exit == true|.
 \item $T_{end}$ : ~\\
-\verb|/part/1/count > 2 and| \\
-\verb|/part/2/count > 2 and| \\
+\verb|/part/1/count > 2 or| \\
+\verb|/part/2/count > 2 or| \\
 \verb|/part/3/count > 2|.
 \end{itemize}
 
+Finally, the pink state contains a Javascript function 
+that will draw a random number between 1 and 3, 
+increment the count of the relevant \verb|/part|, 
+and write the drawn part in \verb|/part/next|.
+If any count becomes greater than two, then $T_{end}$
+trigger will stop the execution : the score has ended. 
+Else a new loop iteration is started, and either 
+$T_1$, $T_2$ or $T_3$ will start instantaneously.
+
+Hence we show how a somewhat complex score logic 
+can be implemented with few syntax elements.
+
+Another alternative, instead of putting MIDI data in the score,
+which makes it entirely automatic,  
+would be to control a screen that displays the part that is 
+to be played.
+A pianist would then have to interpret the part 
+in real-time which would bring back the human aspect.
 
 \section{Tooling}
 There are plenty of parts that requires new problems to be solved in i-score, especially in the area of debugging. 
@@ -355,6 +413,9 @@ Such tooling can decrease the development time a lot, and we assume that it woul
 \item embeddable 
 \item problématique de déboguage, analyse statique
 \end{itemize}
+- dire qu'on veut utiliser des retours sur les utilisations 
+les plus courante de JS par les gens pour en faire des éléments 
+prédéfinis de l'interface graphique.
 \begin{acknowledgments}
     This work was funded by Blue Yeti and ANR.
 \end{acknowledgments} 
