@@ -14,7 +14,7 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg7519"
-   inkscape:version="0.91+devel r14666 custom"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="function.svg">
   <defs
      id="defs7513" />
@@ -31,10 +31,10 @@
      inkscape:document-units="mm"
      inkscape:current-layer="g8968"
      showgrid="false"
-     inkscape:window-width="1918"
-     inkscape:window-height="1042"
-     inkscape:window-x="0"
-     inkscape:window-y="18"
+     inkscape:window-width="2834"
+     inkscape:window-height="1735"
+     inkscape:window-x="20"
+     inkscape:window-y="20"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7516">
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2649,8 +2649,12 @@
            xml:space="preserve"
            style="font-style:normal;font-weight:700;font-size:10px;line-height:125%;font-family:Arial;fill:#000000;fill-opacity:1;stroke:none"
            sodipodi:linespacing="125%"><tspan
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
-             id="tspan7253-1">Function container F1</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+             id="tspan7253-1">Procedure container </tspan><tspan
+             id="tspan7208"
+             style="-inkscape-font-specification:'Times New Roman, Bold Italic';font-family:'Times New Roman';font-weight:bold;font-style:italic;font-stretch:normal;font-variant:normal;font-size:13.33333358px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">P<tspan
+   style="font-size:69.33333461%;baseline-shift:sub"
+   id="tspan7210">C</tspan></tspan></text>
         <text
            id="text6565-7-5"
            font-style="normal"
@@ -4612,7 +4616,7 @@
            sodipodi:role="line"
            id="tspan10943"
            x="405.36783"
-           y="176.26913"></tspan></text>
+           y="176.26913" /></text>
       <g
          id="g6567-9-0"
          font-style="normal"
@@ -4630,8 +4634,12 @@
            xml:space="preserve"
            style="font-style:normal;font-weight:700;font-size:10px;line-height:125%;font-family:Arial;fill:#000000;fill-opacity:1;stroke:none"
            sodipodi:linespacing="125%"><tspan
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
-             id="tspan7253-1-9">Function body F2</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+             id="tspan7253-1-9">Procedure body </tspan><tspan
+             id="tspan7214"
+             style="-inkscape-font-specification:'Times New Roman, Bold Italic';font-family:'Times New Roman';font-weight:bold;font-style:italic;font-stretch:normal;font-variant:normal;font-size:13.33333358px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">P<tspan
+   style="font-size:69.33333461%;baseline-shift:sub"
+   id="tspan7216">B</tspan></tspan></text>
         <text
            id="text6565-7-5-3"
            font-style="normal"
@@ -4662,8 +4670,12 @@
            xml:space="preserve"
            style="font-style:normal;font-weight:700;font-size:10px;line-height:125%;font-family:Arial;fill:#000000;fill-opacity:1;stroke:none"
            sodipodi:linespacing="125%"><tspan
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
-             id="tspan7253-1-9-3">Trigger T1</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+             id="tspan7253-1-9-3">Trigger <tspan
+   style="-inkscape-font-specification:'Times New Roman, Bold Italic';font-family:'Times New Roman';font-weight:bold;font-style:italic;font-stretch:normal;font-variant:normal;font-size:13.33333358px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+   id="tspan7228">T</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889328px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold Italic';text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start"
+   id="tspan7218">1</tspan></tspan></text>
         <text
            id="text6565-7-5-3-3"
            font-style="normal"
@@ -4687,8 +4699,12 @@
          xml:space="preserve"
          style="font-style:normal;font-weight:700;font-size:10px;line-height:125%;font-family:Arial;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
          sodipodi:linespacing="125%"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
-           id="tspan7253-1-9-3-0">Trigger T2</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+           id="tspan7253-1-9-3-0">Trigger <tspan
+   style="-inkscape-font-specification:'Times New Roman, Bold Italic';font-family:'Times New Roman';font-weight:bold;font-style:italic;font-stretch:normal;font-variant:normal;font-size:13.33333358px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+   id="tspan7226">T</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889328px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold Italic';text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start"
+   id="tspan7220">2</tspan></tspan></text>
       <text
          id="text6565-7-8-2-4-3"
          font-style="normal"
@@ -4699,8 +4715,12 @@
          xml:space="preserve"
          style="font-style:normal;font-weight:700;font-size:10px;line-height:125%;font-family:Arial;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1"
          sodipodi:linespacing="125%"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
-           id="tspan7253-1-9-3-0-7">Loop L1</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.33333397px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start"
+           id="tspan7253-1-9-3-0-7">Loop </tspan><tspan
+           id="tspan7232"
+           style="-inkscape-font-specification:'Times New Roman, Bold Italic';font-family:'Times New Roman';font-weight:bold;font-style:italic;font-stretch:normal;font-variant:normal;font-size:13.33333358px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">L<tspan
+   style="font-size:69.33333461%;baseline-shift:sub"
+   id="tspan7234">1</tspan></tspan></text>
     </g>
   </g>
 </svg>

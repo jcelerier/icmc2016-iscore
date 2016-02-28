@@ -152,7 +152,7 @@ languages procedures.
 
 We conclude by exhibiting an i-score example of a musical work inspired by polyvalent structure music,
 that can be used by composers as a starting point to work with the environment. 
-This example contains relatively few elements, which shows the practical expresiveness of the language.
+This example contains relatively few elements, which shows the practical expressiveness of the language.
 
 \subsection{Existing works}
 The sequencer metaphor is well-known amongst audio engineers and music composers. 
@@ -234,7 +234,7 @@ The presence of a single interaction point makes the state space enormous.
 Hence dashes are shown when the actual execution time is not known beforehand. 
 For instance : \emph{play a D minor chord until a dancer moves on stage}.
 
-In the context of a Scenario, as shown in~\cite{celerier2015ossia}, these primitives allows for sequencing elements, conditional branching, and interactive triggering, but are not enough for looping.
+In the context of a Scenario, as shown in~\cite{celerier2015ossia}, these primitives allow for sequencing elements, conditional branching, and interactive triggering, but are not enough for looping.
 The user interface of the i-score software allows for all the common and expected operations when editing a Scenario : displacement, scaling, creation, deletion, copy-paste...
 
 \subsection{Loop}
@@ -266,7 +266,7 @@ For instance : $x \leftarrow x + 1$ is a simple incrementation
 operation, which requires one variable $x$.
 Different programming languages have distinct takes on the 
 capabilities of variables.
-For instance, functional programming languages will generally 
+For instance, pure functional programming languages will generally 
 behave according to immutability rules, that is, a variable once 
 assigned cannot be modified.
 This is in contrast with imperative languages, closer 
@@ -395,8 +395,7 @@ It consists in an abstraction around a behaviour that can be called
 by name easily.
 It can be extended to the notion of function which takes arguments 
 and returns values.
-The concept of procedure is useful, because it means that 
-if one wants the same behaviour to occur at multiple times during
+Procedures are useful: if one wants the same behaviour to occur at multiple times during
 the execution of the program or the score, this behaviour will 
 have to be written only once.
 However, the visual flow becomes deconstructed, because 
@@ -404,7 +403,7 @@ the definition of the procedure is given at a point in the program or score,
 and its usage occurs at other points.
 
 We present in fig.~\ref{fig.function} how one could create a simple 
-procedure that will then be able to be recalled at any point in time.
+procedure $P$ that will then be able to be recalled at any point in time.
 However, it suffers from a restriction due to the temporal nature of the system : 
 it will only be able to be called when it is not already currently running. 
 This is due to the single-threaded nature of the execution engine : there is 
@@ -413,24 +412,25 @@ temporal process cannot be processed at the same time at two different points.
 
 The procedure is built as follows : 
 \begin{itemize}
-    \item A time constraint in the root Scenario will end on an interactive triggering set with infinite duration.
-    \item This time constraint contains a Loop process. 
-    The procedure is named \lstinline{f} in the local tree. The interactive triggers $T_1, T_2$ at the beginning and end of the pattern time constraint are set as follows : 
+    \item A time constraint, $P_C$ in the root Scenario will end on an interactive triggering set with infinite duration.
+    \item This time constraint contains a Loop process $L_1$. 
+    The procedure is named \lstinline{p} in the local tree. 
+    The interactive triggers $T_1, T_2$ at the beginning and end of the pattern time constraint are set as follows : 
     \begin{itemize}
-        \item $T_1$ : \lstinline{/f/call true}.
-        \item $T_2$ : \lstinline{/f/call true}.
+        \item $T_1$ : \lstinline{/p/call true}.
+        \item $T_2$ : \lstinline{/p/call true}.
     \end{itemize}
     A state triggered by $T_1$ should set the message:~\\
-    \lstinline{/f/call false}. 
+    \lstinline{/p/call false}. 
     This causes the procedure not to loop 
     indefinitely : it will have to be triggered manually again.
-    \item The loop's pattern contains the actual procedure, that is, the process that the composer wants to be able to call from any point in his score. 
+    \item The loop's pattern $P_B$ contains the actual procedure data, that is, the process that the composer wants to be able to call from any point in his score. 
 \end{itemize}
 
 The execution of this process will then overlay itself with what is currently playing when at another point of the score, 
-the message \lstinline{/f/call true} is sent.
+the message \lstinline{/p/call true} is sent.
 Once the procedure's execution is finished, it enters a waiting state until it is called again.
-This behaviour is adapted to interactive arts : generally, one will want to start multiple 
+This behaviour is adapted to interactive arts: generally, one will want to start multiple 
 concurrent processes (one to manage the sound, one to manage videos, one to manage lights\dots) at a single point in time; this method allows to implement this.
 
 \section{Musical example : polyvalent structure}
