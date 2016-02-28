@@ -352,23 +352,34 @@ communication between different parts of the software.
 This is commonly used when doing networked operations or 
 user interfaces, since they have to be responsive.
 
-One would write, in a (poor) imperative style : 
-\begin{lstlisting}
-play A
-wait for the end of A
-play B
-wait for the end of B
-play C
+\begin{figure}[h]
+\begin{lstlisting}[language=Algol]
+boolean c_was_played := false
+boolean d_was_played := false
+  
+on A.triggered :
+ on B.triggered :
+  on C.triggered :
+   c_was_played := true
+   if d_was_played :
+    send E.canWait
+
+  on D.triggered :
+   d_was_played := true
+   if c_was_played :
+    send E.canWait
+  
+  on E.canWait :
+   on E.triggered :
+    play Final
 \end{lstlisting}
-In event-driven programming, instead, one would write a software 
-using callbacks, futures or reactive programming patterns\cite{kambona2013evaluation} :~\\
-\begin{lstlisting}
-when A is triggered
-    play B
-when B is triggered
-    play C    
-play A
-\end{lstlisting}
+\caption{The fig.~\ref{fig.event} score in a callback-based event-driven programming style.}
+\label{fig.eventdriven}
+\end{figure}
+
+In textual event-driven programming, one would write a software 
+using callbacks, futures or reactive programming patterns\cite{kambona2013evaluation}. 
+An example of what could be the score of fig.~\ref{fig.event} in a textual language is given in fig.~\ref{fig.eventdriven}.
 
 Since i-score supports interactive events, one can easily write such event chaining.
 An example is given in fig.~\ref{fig.event}. 
