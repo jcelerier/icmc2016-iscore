@@ -98,6 +98,37 @@
     urlcolor=black
 }
 
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\ttfamily,
+	stringstyle=\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+\newcommand{\scenario}{\textsc{scenario}}
+\newcommand{\Loop}{\textsc{loop}}
+\newcommand{\state}{\textsc{state}}
+\newcommand{\states}{\textsc{state}}
+\newcommand{\timeevent}{\textsc{time event}}
+\newcommand{\timeevents}{\textsc{time event}}
+\newcommand{\timenode}{\textsc{time node}}
+\newcommand{\timenodes}{\textsc{time nodes}}
+\newcommand{\timeconstraint}{\textsc{time constraint}}
+\newcommand{\timeconstraints}{\textsc{time constraints}}
+\newcommand{\timeprocess}{\textsc{time process}}
+\newcommand{\timeprocesses}{\textsc{time processes}}
+\newcommand{\automation}{\textsc{automation}}
+\newcommand{\mapping}{\textsc{mapping}}
+\newcommand{\trigger}{\textsc{trigger}}
+\newcommand{\triggers}{\textsc{triggers}}
+
 \title{\papertitle}
 
 %\threeauthors
@@ -143,7 +174,7 @@ family, targeted towards temporal compositions, in a visual time-line interface.
 
 In previous research\cite{hogue2014ossia,allombert2006concurrent} interactive triggers 
 were exhibited as a tool for a musician to interact with the computer following a pre-established score.
-Other approaches for real-time interactive scoring are for instance seen with Antescofo% TODO cite]
+Other approaches for real-time interactive scoring are for instance seen with Antescofo\cite{cont2008antescofo}
  which allows for live score following.
 Here, we show that with the introduction of loops, and the capacity to perform computations 
 on variables in a score, we are able to use interactive triggers as a powerful flow control tool, which 
@@ -208,8 +239,8 @@ Additionally, the ability to perform computations is required in order to have a
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.40\textwidth]{images/hierarchy.eps}
-    \caption{Screenshot of a part of i-score, showing major elements of the formalism. The time constraint is the full or dashed horizontal line, the states are the black dots, the time nodes are the vertical bars, and a time event is shown at the right of the "Condition" text. Interactive triggers are black \textbf{T}'s with a downwards arrow. There are five processes (capitalized) : an englobing Scenario which is the hierarchical root of the score, another Scenario, in the box "Hierarchy", an Automation on a remote parameter in the "Curve" box, a Loop in the box containing the loop pattern, and another Automation that will be looped.}
+    \includegraphics[width=0.35\textwidth]{images/hierarchy.eps}
+    \caption{Screenshot of a part of i-score, showing major elements of the formalism. The \timeconstraint is the full or dashed horizontal line, the \states are the black dots, the \timenodes are the vertical bars, and a \timeevent is shown at the right of the "Condition" text. Interactive \triggers are black \textbf{T}'s with a downwards arrow. There are five \timeprocesses (capitalized) : an englobing \scenario which is the hierarchical root of the score, another \scenario, in the box "Hierarchy", an \automation on a remote parameter in the "Curve" box, a \Loop in the box containing the \Loop pattern, and another \automation that will be looped.}
     \label{fig.hierarchy}
 \end{figure}
 
@@ -226,7 +257,7 @@ Instantaneous processes are functions that will be run at a single point in time
 For instance : \emph{play a random note}.
 
 \subsection{Scenario}
-The \textsc{scenario} is an organisation of the elements of the i-score model : time constraint (a span of time which contains temporal processes), time node (which will synchronize the ending of time constraints with the happening of an external event such as a note being played), time event (a condition that will cause its following time constraints to start if it is true), and state (which contains data to send and instantaneous processes).
+The \scenario is a particular setup of the elements of the i-score model : time constraint (a span of time which contains temporal processes), time node (which will synchronize the ending of time constraints with the happening of an external event such as a note being played), time event (a condition that will cause its following time constraints to start if it is true), and state (which contains data to send and instantaneous processes).
 They are shown in fig.~\ref{fig.hierarchy}. 
 The time flows from left to right as in most traditional sequencers. 
 However, due to the presence of interactivity, the various possibilities of execution of the score cannot be shown. 
@@ -234,15 +265,18 @@ The presence of a single interaction point makes the state space enormous.
 Hence dashes are shown when the actual execution time is not known beforehand. 
 For instance : \emph{play a D minor chord until a dancer moves on stage}.
 
-In the context of a Scenario, as shown in~\cite{celerier2015ossia}, these primitives allow for sequencing elements, conditional branching, and interactive triggering, but are not enough for looping.
-The user interface of the i-score software allows for all the common and expected operations when editing a Scenario : displacement, scaling, creation, deletion, copy-paste...
+In the context of a \scenario, as shown in~\cite{celerier2015ossia}, these primitives allow for sequencing elements, conditional branching, and interactive triggering, but are not enough for looping.
+The user interface of the i-score software allows for all the common and expected operations when editing a \scenario : displacement, scaling, creation, deletion, copy-paste...
 
 \subsection{Loop}
-The loop is another organization of the same elements, more restrictive, and with a different execution algorithm : it is 
-composed exclusively of two time nodes, two time events, two states, and a time constraint in between.
+The loop is another setup of the same elements, more restrictive, and with a different execution algorithm : it is 
+composed exclusively of two time nodes, two time events, two states, and a time constraint in-between, which we name loop pattern.
 When the second time node gets executed, the time flow is reverted to before the execution of the first time node.
-This means that if the composer adds an interactive trigger on any of these time nodes, the Loop will be able to play patterns of different durations at each loop cycle, with a different outcome.
+This means that if the composer adds an interactive trigger on any of these time nodes, the \Loop will be able to play patterns of different durations at each loop cycle, with a different outcome.
 This is strictly more general than loops in more traditional sequencers such as Avid Pro Tools, Steinber Cubase or Apple Logic, when looping consists in a strict duplication of the audio or MIDI data.
+
+As for the \scenario, the \Loop is implemented as a temporal process that will be inserted under an existing time constraint. 
+Hence the \Loop's overall duration will be limited by its parent constraint's duration.
 
 \subsection{Communication}
 The software mainly communicates via the OSC\footnote{Open Sound Control} protocol.
@@ -297,7 +331,7 @@ Here is a list of the most prominent recent additions to i-score :
 \begin{itemize}
 \item Javascript support : one can use Javascript scripts both as temporal and instantaneous processes.
 When writing a temporal process, the composer has to provide a function of the following form : 
-\begin{lstlisting}
+\begin{lstlisting}[language=JavaScript]
 function(t) {      
     var obj = new Object; 
     obj.address = '/an/address'; 
@@ -321,10 +355,10 @@ Currently provided are 1D (linear, power) and 3D (cubic spline) automations.
 \item Recording : one can record either automations which will be able to apply automatic interpolation for numeric parameters, or record any kind of input message to replay it as it happened afterwards.
 \item Execution speed control : the temporal constraints all have a multiplicating coefficient for execution speed.
 \item Introspectability : i-score exposes the objects of the current score in the same tree that the remote devices. 
-It follows the hierarchical model defined by the Scenario
+It follows the hierarchical model defined by the \scenario and the \Loop.
 Multiple attributes can be queried, and to some extent modified during the execution of the score. 
 For instance, the activation status of interactive triggers, and the execution speed of all the temporal constraints are controlable parameters.
-The elements are organized hierarchically according to their hierarchy in the scenario, and can also be remote-controled from the network.
+The elements are organized hierarchically according to their hierarchy in the \scenario, and can also be remote-controled from the network.
 Plug-ins can expose their own attributes in this tree.
 \item Interactive execution : during the authoring process, it is sometimes necessary to replay just a part of the score.
 i-score provides this feature. 
@@ -342,7 +376,7 @@ Then, we will present an example of the concept of procedure in a time-oriented 
 \subsection{Event-driven design}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.45\textwidth]{images/event.eps}
+    \includegraphics[width=0.35\textwidth]{images/event.eps}
     \caption{An example of event-driven score : if all the interactive trigger's conditions are set to true, they will trigger at each tick one after the other. Else, standard network behaviour is to be expected.}
     \label{fig.event}
 \end{figure}~\\
@@ -353,7 +387,7 @@ This is commonly used when doing networked operations or
 user interfaces, since they have to be responsive.
 
 \begin{figure}[h]
-\begin{lstlisting}[language=Algol]
+\begin{lstlisting}[language=Algol,basicstyle={\footnotesize\tt}]
 boolean c_was_played := false
 boolean d_was_played := false
   
@@ -396,7 +430,7 @@ There is no practical limit to the amount of branches that can be synchronized i
 \subsection{Simulating procedures}
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.40\textwidth]{images/function.eps}
+\includegraphics[width=0.35\textwidth]{images/function.eps}
 \caption{Implementation of a procedure in i-score}
 \label{fig.function}
 \end{figure}
@@ -423,8 +457,8 @@ temporal process cannot be processed at the same time at two different points.
 
 The procedure is built as follows : 
 \begin{itemize}
-    \item A time constraint, $P_C$ in the root Scenario will end on an interactive triggering set with infinite duration.
-    \item This time constraint contains a Loop process $L_1$. 
+    \item A time constraint, $P_C$ in the root \scenario will end on an interactive triggering set with infinite duration.
+    \item This time constraint contains a \Loop $L_1$. 
     The procedure is named \lstinline{p} in the local tree. 
     The interactive triggers $T_1, T_2$ at the beginning and end of the pattern time constraint are set as follows : 
     \begin{itemize}
@@ -435,7 +469,7 @@ The procedure is built as follows :
     \lstinline{/p/call false}. 
     This causes the procedure not to loop 
     indefinitely : it will have to be triggered manually again.
-    \item The loop's pattern $P_B$ contains the actual procedure data, that is, the process that the composer wants to be able to call from any point in his score. 
+    \item The \Loop's pattern $P_B$ contains the actual procedure data, that is, the process that the composer wants to be able to call from any point in his score. 
 \end{itemize}
 
 The execution of this process will then overlay itself with what is currently playing when at another point of the score, 
@@ -447,12 +481,12 @@ concurrent processes (one to manage the sound, one to manage videos, one to mana
 \section{Musical example : polyvalent structure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.45\textwidth]{images/partition.eps}
+    \includegraphics[width=0.35\textwidth]{images/partition.eps}
     \caption{A polyvalent score in i-score}
     \label{fig.polyvalent}
 \end{figure}
 
-In this example, showcased in fig.~\ref{fig.polyvalent}, we present a work that is similar in structure to Karlheinz Stockhausen's \emph{Klavierstück XI} (1956), or John Cage's \emph{Two} (1987). 
+In this example, showcased in fig.~\ref{fig.polyvalent}, we present a work that is similar in structure to Karlheinz Stockhausen's~\\ \emph{Klavierstück~XI} (1956), or John Cage's \emph{Two} (1987). 
 
 The complete work contains variables in the tree, as explained earlier, and a temporal score.
 The tree is defined in fig~\ref{fig.tablescore}.
@@ -468,31 +502,33 @@ The tree is defined in fig~\ref{fig.tablescore}.
     \caption{Tree used for the polyvalent score}
     \label{fig.tablescore}
 \end{figure}~\\
-For instance, \lstinline{/part/next} is an address of integral type, with a default value of zero. 
-The score is as follows : there are multiple muscial parts containing recordings of MIDI notes : \textbf{Part. 1, 2, 3}.
-These parts are contained in a Scenario, itself contained in a Loop that will run indefinitely. 
+For instance, \lstinline{/part/next} is an address of integral type, with a default value chosen by the composer between 1, 2, 3 : it will be the first played part. 
+The score is as follows : there are multiple musical parts containing recordings of MIDI notes : \textbf{Part. 1, 2, 3}.
+These parts are contained in a \scenario, itself contained in a \Loop that will run indefinitely. 
 At the end of each part, there is an orange State that will write a message "true" to a variable \lstinline{/exit}.
-The time constraint of the loop ends on an orange interactive trigger, $T_{loop}$.
-The Loop itself is inside a Time constraint ended by an interactive trigger, $T_{end}$.
+The parent time constraint of the \Loop ends on an orange interactive trigger, $T_{L}$.
+The \Loop itself is inside a Time constraint ended by an interactive trigger, $T_{E}$.
 Finally, the parts are started by interactive triggers  $T_{\{1, 2, 3\}}$ .
-
+ 
 The conditions in the triggers are as follows : 
 \begin{itemize}
 \item  $T_{\{1, 2, 3\}}$ : ~\\ \lstinline|/part/next == {1, 2, 3}|.
-\item $T_{loop}$ : ~\\ \lstinline{/exit == true}.
-\item $T_{end}$ : ~\\
+\item $T_{L}$ : ~\\ \lstinline{/exit == true}.
+\item $T_{E}$ : ~\\
 \lstinline{/part/1/count > 2 or} \\
 \lstinline{/part/2/count > 2 or} \\
 \lstinline{/part/3/count > 2}.
 \end{itemize}
 
-Finally, the pink state under $T_{loop}$ contains a Javascript function 
+The software contains graphical editors to set conditions easily.
+Finally, the blue state under $T_{L}$ contains a JavaScript function 
 that will draw a random number between 1 and 3, 
 increment the count of the relevant \verb|/part|, 
-and write the drawn part in \verb|/part/next|.
-If any count becomes greater than two, then $T_{end}$
-trigger will stop the execution : the score has ended. 
-Else a new loop iteration is started, and either 
+and write the drawn part in \verb|/part/next|. 
+This function is shown in fig.~\ref{fig.jsmusic}.
+If any count becomes greater than two, then the
+trigger $T_{E}$ will stop the execution : the score has ended. 
+Else, a new loop iteration is started, and either 
 $T_1$, $T_2$ or $T_3$ will start instantaneously.
 
 Hence we show how a somewhat complex score logic 
@@ -504,7 +540,28 @@ would be to control a screen that displays the part that is
 to be played.
 A musician would then have to interpret the part 
 in real-time which would bring back the human aspect.
-
+\begin{figure}[h]
+\flushleft
+\begin{lstlisting}[language=JavaScript,basicstyle=\footnotesize\ttfamily]
+function() {      
+  var n = 
+    Math.round(
+      Math.random()*2)+1;
+	
+  var root = 'local:/part/'
+  return [ {
+    address : root + 'next',
+    value   : n 
+  }, {
+    address : root + n,
+    value : iscore.value(root + n) + 1
+  } ];
+}
+\end{lstlisting}
+	\caption{Code in the end state}
+	\label{fig.jsmusic}
+\end{figure}
+	
 \section{Tooling}
 There are plenty of parts that requires new problems to be solved in i-score, especially in the area of debugging. 
 For instance, debugging is generally used to understand and find out easily why did not a program produce the expected result.
