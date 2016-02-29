@@ -241,7 +241,7 @@ Additionally, the ability to perform computations is required in order to have a
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.35\textwidth]{images/hierarchy.eps}
+    \includegraphics[width=0.45\textwidth]{images/hierarchy.eps}
     \caption{Screen-shot of a part of i-score, showing major elements of the formalism. The \timeconstraint is the full or dashed horizontal line, the \states are the black dots, the \timenodes are the vertical bars, and a \timeevent is shown at the right of the "Condition" text. Interactive \triggers are black \textbf{T}'s with a downwards arrow. There are five \timeprocesses (capitalized) : a \scenario which is the hierarchical root of the score, another \scenario, in the box "Hierarchy", an \automation on a remote parameter in the "Curve" box, a \Loop in the box containing the \Loop pattern, and another \automation that will be looped.}
     \label{fig.hierarchy}
 \end{figure}
@@ -297,7 +297,7 @@ to the corresponding MIDI notes.
 
 \subsection{Variables}
 Having variables is important : a variable can hold data, 
-and a computation can be performed on it.
+and computations can be performed on it.
 For instance : $x \leftarrow x + 1$ is a simple incrementation 
 operation, which requires one variable $x$.
 
@@ -371,7 +371,7 @@ Then, we will present an example of the concept of procedure in a time-oriented 
 \subsection{Event-driven design}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.35\textwidth]{images/event.eps}
+    \includegraphics[width=0.45\textwidth]{images/event.eps}
     \caption{An example of event-driven score : if all the interactive trigger's conditions are set to true, they will trigger at each tick one after the other. Else, standard network behaviour is to be expected.}
     \label{fig.event}
 \end{figure}~\\
@@ -425,8 +425,8 @@ There is no practical limit to the amount of branches that can be synchronized i
 \subsection{Simulating procedures}
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.35\textwidth]{images/function.eps}
-\caption{Implementation of a procedure in i-score}
+\includegraphics[width=0.45\textwidth]{images/function.eps}
+\caption{Implementation of a procedure in i-score.}
 \label{fig.function}
 \end{figure}
 
@@ -476,8 +476,8 @@ concurrent processes (one to manage the sound, one to manage videos, one to mana
 \section{Musical example : polyvalent structure}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.35\textwidth]{images/partition.eps}
-    \caption{A polyvalent score in i-score}
+    \includegraphics[width=0.45\textwidth]{images/partition.eps}
+    \caption{An example of polyvalent score in i-score}
     \label{fig.polyvalent}
 \end{figure}
 
