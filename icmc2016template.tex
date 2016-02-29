@@ -300,9 +300,7 @@ Having variables is important : a variable can hold data,
 and computations can be performed on it.
 For instance : $x \leftarrow x + 1$ is a simple incrementation 
 operation, which requires one variable $x$.
-
-The implementation of variables is based on the device tree, which 
-acts like a global memory. 
+Variables in i-score are based on the device tree, which acts like a global memory. 
 The composer can create new variables graphically in the tree, and select their types.
 The variables are statically typed: 
 \begin{itemize}
@@ -312,10 +310,9 @@ The variables are statically typed:
 
 While there is no mechanism to allow dynamic allocation of new variables during the execution of a score, it could easily be implemented by having a special address.
 This address would take in argument the name of the variable to allocate as well as its type and add it as a node of the tree.
-
-Finally, there is no notion of scope in the device tree : any process can access to any variable, which 
-should be considered elements of the object model of the local software.
-However, when local variables are necessary for complex computations, it 
+Finally, there is only a global scope in the device tree : any process can access to any variable at any point in time.
+The variables should be considered elements of the object model of the local software.
+However, when local variables are necessary as intermediary steps for complex computations, it 
 may be better to use the embedded scripting facilities to encapsulate them.
 
 \section{Authoring features}
