@@ -162,38 +162,38 @@
 \section{Introduction}\label{sec:introduction}
 This paper outlines the new capabilities in the current iteration of i-score, 
 a free and open-source interactive scoring sequencer.
-It is targeted towards the composition of scores with an interactivity component, that is, scores meant to be performed while maintaining an ordering or structure of the work either at the micro or macro levels.
+It is targeted towards the composition of scores with an interactive component, that is, scores meant to be performed while maintaining an ordering or structure of the work either at the micro or macro levels.
 It is not restricted to musical composition but can control any kind of multi-media work.
 
 We first expose briefly the main ideas behind interactive scores, and explain 
 how i-score can be used as a language of the structured programming language 
 family, targeted towards temporal compositions, in a visual time-line interface.
 
-In previous research\cite{allombert2006concurrent} interactive triggers 
+In previous research~\cite{allombert2006concurrent} interactive triggers 
 were exhibited as a tool for a musician to interact with the computer following a pre-established score.
 Here, we show that with the introduction of loops, and the capacity to perform computations 
 on variables in a score, interactive triggers can be used as a powerful flow control tool, which 
 allows to express event-driven constructs, and build a notion similar to traditional programming 
 languages procedures.
 
-We conclude by exhibiting an i-score example of a musical work inspired by polyvalent structure music,
-that can be used by composers as a starting point to work with the environment. 
+We conclude by producing an i-score example of a musical work inspired by polyvalent structure music,
+which can be used by composers as a starting point to work with the environment. 
 This example contains relatively few elements, which shows the practical expressiveness of the language.
 
 \section{Existing works}
 The sequencer metaphor is well-known amongst audio engineers and music composers. 
-It is generally composed of tracks, which contains audio or MIDI clips, applied effects 
+It is generally built around tracks, which contains audio or MIDI clips, applied effects 
 and parameter automations.
 
 In multiple cases, it has been shown that it was possible to write 
 more generalist multimedia time-line based sequencers, without the need to restrict oneself 
 to audio data types. 
-The MET++ framework\cite{ackermann1994direct} is an object-oriented framework 
+The MET++ framework~\cite{ackermann1994direct} is an object-oriented framework 
 tailored to build such multimedia applications.
 A common approach, also used in previous version of i-score, is to use constraint programming 
-to represent relations between temporal objects\cite{song1999interactive, allombert2006concurrent, toro2010concurrent}. 
+to represent relations between temporal objects~\cite{allombert2006concurrent, song1999interactive, toro2010concurrent}. 
 This is inspired from Allen's relationship between temporal objects.
-In \cite{hirzalla1995temporal}, Hirzalla shows how conditionality can be introduced between multimedia elements in a time-line to produce different outcomes.
+In~\cite{hirzalla1995temporal}, Hirzalla shows how conditionality can be introduced between multimedia elements in a time-line to produce different outcomes.
 
 Other approaches for interactive music are generally not based on the time-line metaphor, 
 but more on interaction-centric applications written in patchers such Max/MSP or PureData, 
@@ -205,8 +205,8 @@ unless the composer takes care of maintaining it in his patch.
 When using text-based programming environments, such as Processing or OpenFrameworks, this may not be possible if concurrent processes must occur (e.g. a sound plays while the lights fade-in).
 
 The syntax and graphical elements used in i-score as well as the 
-execution semantics are for the most part introduced in \cite{celerier2015ossia, baltazar2014score}, along 
-with references to other works in the domain of interactive muscial scores and presentation of the operational semantics.
+execution semantics are for the most part introduced in~\cite{celerier2015ossia, baltazar2014score}, along 
+with references to other works in the domain of interactive musical scores and presentation of the operational semantics.
 
 The novelty of our approach lies in the introduction of graphical temporal loops, and of a computation model 
 based on JavaScript that can be used at any point in the score. 
@@ -218,9 +218,9 @@ which allows for more dynamic scores.
 \section{Temporal structured programming}
 Structured programming is a paradigm which traces 
 back to the 1960's, and was conceived at a time where the use of \lstinline{GOTO}
-instructions was prevalent, leading to difficult code.
+instructions was prevalent, leading to hard to read code.
 
-The structured programming theorem\cite{bohm1966flow,mills1972mathematical} states that any computable function can be computed 
+The structured programming theorem~\cite{bohm1966flow,mills1972mathematical} states that any computable function can be computed 
 without the use of \lstinline{GOTO} instructions, if instead the following operations are available: 
 \begin{itemize}
     \item Sequence (\lstinline{A} followed by \lstinline{B}), 
@@ -248,17 +248,16 @@ two points in time: \emph{do a volume fade-in from t=10s to t=25s}.~\\
 Instantaneous processes run at a single point in time: \emph{play a random note}.
 
 \subsection{Scenario}
-The \scenario is a process and a particular setup (fig.~\ref{fig.hierarchy}) of the elements of the i-score model: \timeconstraint (a span of time, contains temporal processes), \timenode (synchronizes the ending of \timeconstraints with an external event such as a note being played), \timeevent (a condition to start the following \timeconstraints ), and \state (contains data to send, instantaneous processes).
+The \scenario is a process and a particular setup (fig.~\ref{fig.hierarchy}) of the elements of the i-score model: \timeconstraint (a span of time, which contains temporal processes), \timenode (synchronizes the ending of \timeconstraints with an external event such as a note being played), \timeevent (a condition to start the following \timeconstraints ), and \state (contains data to send, and instantaneous processes).
 Time flows from left to right as in traditional sequencers. 
 Due to the presence of interactivity, the various possibilities of execution of the score cannot be shown. 
 Hence dashes are shown when the actual execution time is not known beforehand. 
 For instance: \emph{play a D minor chord until a dancer moves on stage}.
 
 In the context of a \scenario, as shown in~\cite{celerier2015ossia}, these primitives allow for sequencing elements, conditional branching, and interactive triggering, but are not enough for looping.
-The user interface allows for all the common and expected operations when editing a \scenario: displacement, scaling, creation, deletion, copy-paste...
 
 \subsection{Loop}
-The loop is another process and setup of these elements, more restrictive, and with a different execution algorithm: it is 
+The loop is another temporal process and setup of these elements, more restrictive, and with a different execution algorithm: it is 
 composed exclusively of two \timenodes, two \timeevents, two \states, and a \timeconstraint in-between (the loop pattern).
 When the second \timenode is triggered, the time flow reverts to before the execution of the first \timenode.
 If the composer adds an interactive trigger on any of these \timenodes, each loop cycle may have a different duration and outcome.
@@ -276,11 +275,11 @@ There is no scoping: any process can access to any variable at any point in time
 No internal allocation primitive is provided, but it can be emulated with an external software such as a PureData patch if necessary.
 
 \subsection{Authoring features}
-We present here some of the authoring features of the system. 
-The software is based on a plug-in architecture to offer extensibility.
-Provided temporal processes are Javascript scripting, automations, mappings, and 
+Provided temporal processes are JavaScript scripting, automations, mappings, and 
 recordings. 
 Execution speed can be controlled, and the score object tree can be introspected.
+The user interface allows for all the common and expected operations : displacement, scaling, creation, deletion, copy-paste, undo-redo...
+The software is based on a plug-in architecture to offer extensibility, which is how all the processes are implemented.
 %
 %
 %\begin{itemize}
@@ -312,7 +311,7 @@ Execution speed can be controlled, and the score object tree can be introspected
 \section{Temporal design patterns}
 In this section, we present two design patterns that can be used 
 for writing an interactive score.
-We will first showcase event-driven scores,akin to a traditional computer program executing instructions in sequence without delay, or network communication tasks.
+We will first showcase event-driven scores, akin to a traditional computer program executing instructions in sequence without delay, or network communication tasks.
 Then, we will present an example of the concept of procedure in a time-oriented model.
 \subsection{Event-driven design}
 Event-driven, or asynchronous design is a software design 
@@ -322,17 +321,16 @@ This is commonly used when doing networked operations or
 user interface.
 
 In textual event-driven programming, one would write a software 
-using callbacks, futures or reactive programming patterns\cite{kambona2013evaluation}. 
+using callbacks, futures or reactive programming patterns~\cite{kambona2013evaluation}. 
 
-One can write such event chaining with interactive triggers (fig.~\ref{fig.event}).
- 
+One can write such event chaining easily with interactive triggers (fig.~\ref{fig.event}): 
+B cannot happen before A if there is a \timeconstraint between A and B. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.20\textwidth]{images/event.eps}
 	\caption{An example of event-driven score: if all the interactive trigger's conditions are set to true, they will trigger at each tick one after the other. Else, standard network behaviour is to be expected.}
 	\label{fig.event}
-\end{figure}
-The advantage is that ordered operations are easily written: B cannot happen before A if there is a \timeconstraint between A and B.
+\end{figure}~\\
 However, the execution engine will introduce a delay of one tick between each call.
 The tick frequency can be set to as high as one kilo-hertz.
 Synchronization is trivial: here, the last \timeconstraint \textbf{Final}, will 
@@ -366,7 +364,7 @@ The procedure is built as follows:
 \begin{itemize}
     \item A \timeconstraint, $P_C$ in the root \scenario will end on an interactive triggering set with infinite duration.
     \item This \timeconstraint contains a \Loop $L_1$. 
-    The procedure is named \lstinline{p} in the local tree. 
+    The procedure is named \lstinline{p} by the composer in the local tree. 
     The interactive triggers $T_1, T_2$ at the beginning and end of the pattern \timeconstraint are set as follows: 
     \begin{itemize}
         \item $T_1$: \lstinline{/p/call true}.
@@ -379,8 +377,7 @@ The procedure is built as follows:
     \item The \Loop's pattern $P_B$ contains the actual procedure data, that is, the process that the composer wants to be able to call from any point in his score. 
 \end{itemize}
 
-The execution of this process will then overlay itself with what is currently playing when at another point of the score, 
-the message \lstinline{/p/call true} is sent.
+When at any point of the score, the message \lstinline{/p/call true} is sent, the execution of this process overlays itself with what is currently playing.
 Once the procedure's execution is finished, it enters a waiting state until it is called again.
 This behavior is adapted to interactive arts: generally, one will want to start multiple 
 concurrent processes (one to manage the sound, one to manage videos, one to manage lights\dots) at a single point in time; this method allows to implement this.
@@ -392,6 +389,7 @@ concurrent processes (one to manage the sound, one to manage videos, one to mana
     \label{fig.polyvalent}
 \end{figure}
 In this example (fig.~\ref{fig.polyvalent}), we present a work that is similar in structure to Karlheinz Stockhausen's~\\ \emph{Klavierstück~XI} (1956), or John Cage's \emph{Two} (1987). 
+This uses ideas from the two previously presented patterns.
 The complete work contains variables in the device tree and a temporal score.
 The tree is defined in fig~\ref{fig.tablescore}.
 \begin{figure}[h]
@@ -456,16 +454,18 @@ Another alternative, instead of putting MIDI data in the score,
 which makes it entirely automatic and non-interactive,  
 would be to control a screen that displays the part that is 
 to be played.
-A musician would then interpret the part in real-time.
+A musician would then interpret the part in real-time, in order 
+to reintroduce an human part to the performance.
 	
 \section{Conclusion}
 We presented in this paper the current evolutions of the i-score 
 model and software, which introduces the ability to write interactive and variable loops in a time-line, 
 and the usage of JavaScript to perform arbitrary computations on the state of the local and external data controlled by i-score.
+This is followed by the presentation of two design patterns for interactive scores, applied to a musical score.
 
 Currently, the JavaScript scripts have to be written in code, even if it 
 is in a generally visual user interface. 
-But given enough testing and user evaluation, it could be possible to have pre-built script presets 
+Given enough testing and user evaluation, it could be possible to have pre-built script presets 
 that could be embedded in the score for the tasks that are the most common when writing a score.
 
 Additionally, we aim to introduce audio and MIDI capabilities in i-score, so that 
